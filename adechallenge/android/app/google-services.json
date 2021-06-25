@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "310296478052",
+    "project_id": "adechallenge-ee71d",
+    "storage_bucket": "adechallenge-ee71d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310296478052:android:c9fb9fb2c4e154c8fd3a71",
+        "android_client_info": {
+          "package_name": "com.example.adechallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310296478052-ilhtr3l1neof4crbfo9gvi8aufd0rg6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7MDbrnLeHom7z2xeNVYG4xlqqRudsNvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310296478052-ilhtr3l1neof4crbfo9gvi8aufd0rg6m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
