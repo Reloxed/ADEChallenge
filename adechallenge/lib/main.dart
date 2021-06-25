@@ -1,4 +1,4 @@
-import 'package:adechallenge/screens/register.dart';
+import 'package:adechallenge/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
         accentColor: Colors.blue[200]
       ),
-      home: Register(),
+      home: Login(),
     );
   }
 }
