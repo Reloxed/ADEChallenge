@@ -36,9 +36,24 @@ class _DisplayVenuesState extends State<DisplayVenues> {
                   : ListView.builder(
                       itemCount: provider.venues.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(provider.venues[index].name),
-                        );
+                        return Card(
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
+                            child: ListTile(
+                              isThreeLine: true,
+                                leading: Image.network(provider.venues[index].iconUrl, fit: BoxFit.fill,),
+                                title: Text(provider.venues[index].name),
+                                subtitle: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(provider.venues[index].category),
+                                    provider.venues[index].distance == -1.0
+                                        ? Container()
+                                        : Text(provider.venues[index].distance.toString()),
+                                    Text(provider.venues[index].address),
+
+                                  ],
+                                )));
                       })),
     );
   }

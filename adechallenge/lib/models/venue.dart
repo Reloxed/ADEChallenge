@@ -33,7 +33,7 @@ class Venue {
     String address = "";
     if(map['categories'] != null) {
       category = map['categories'][0]['name'];
-      url = map['categories'][0]['icon']['prefix'] + map['categories'][0]['icon']['suffix'];
+      url = map['categories'][0]['icon']['prefix'] + "bg_64" + map['categories'][0]['icon']['suffix'];
     }
     if(map['hereNow'] != null) {
       hereNow = map['hereNow']['count'];
