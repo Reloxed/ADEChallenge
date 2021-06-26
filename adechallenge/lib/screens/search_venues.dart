@@ -1,4 +1,7 @@
+import 'package:adechallenge/models/venue_provider.dart';
+import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /*
 Screen where the users can search venues. It is built by a background image and a form where we ask the user to
@@ -64,6 +67,7 @@ class _SearchVenuesState extends State<SearchVenues> {
   }
 
   Widget _button() {
+    var provider = Provider.of<VenueProvider>(context);
     return Container(
       margin: EdgeInsets.only(top: 16.0),
       padding: EdgeInsets.symmetric(horizontal: 30.0),
@@ -72,7 +76,10 @@ class _SearchVenuesState extends State<SearchVenues> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
             primary: Theme.of(context).primaryColor,
             elevation: 3),
-        onPressed: () {},
+        onPressed: () {
+          navigateToDisplayVenues(context);
+          provider.getApiData(name, location);
+        },
         child: Text(
           "¡A pasarlo bien!",
         ),

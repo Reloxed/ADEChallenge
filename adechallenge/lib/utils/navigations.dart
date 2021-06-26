@@ -1,3 +1,4 @@
+import 'package:adechallenge/screens/display_venues.dart';
 import 'package:adechallenge/screens/register.dart';
 import 'package:adechallenge/screens/search_venues.dart';
 import 'package:flutter/material.dart';
@@ -9,4 +10,8 @@ void navigateToRegister(BuildContext context) {
 void navigateToSearchVenues(BuildContext context) {
   Navigator.pushAndRemoveUntil(
       context, MaterialPageRoute(builder: (context) => SearchVenues()), (Route<dynamic> route) => false);
+}
+
+void navigateToDisplayVenues(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => DisplayVenues()));
 }
