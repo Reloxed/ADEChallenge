@@ -3,6 +3,11 @@ import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/*
+This screen has a form which is used to login users on the app. It asks for an email and password and when the login
+button is clicked, the form is validated showing the corresponding errors on the
+fields. Then, if everything is ok, the user is redirected to the search_venues screen.
+ */
 class Login extends StatefulWidget {
   @override
   _LoginState createState() {
@@ -95,7 +100,7 @@ class _LoginState extends State<Login> {
           if(_formKey.currentState!.validate()){
             try {
               await _auth.signInWithEmailAndPassword(email: email, password: password);
-
+              navigateToSearchVenues(context);
             } on FirebaseAuthException catch (e) {
               String message = "";
               if(e.code == 'user-not-found')
