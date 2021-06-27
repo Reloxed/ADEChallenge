@@ -1,3 +1,4 @@
+import 'package:adechallenge/models/detailed_venue_provider.dart';
 import 'package:adechallenge/models/venue_provider.dart';
 import 'package:adechallenge/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ void main() async {
 
   List<SingleChildWidget> providers = [
     ChangeNotifierProvider<VenueProvider>(create: (_) => VenueProvider()),
+    ChangeNotifierProvider<DetailedVenueProvider>(create: (_) => DetailedVenueProvider())
   ];
 
   runApp(MultiProvider(
