@@ -2,6 +2,7 @@ import 'package:adechallenge/models/detailed_venue.dart';
 import 'package:adechallenge/screens/details_venue.dart';
 import 'package:adechallenge/screens/display_venues.dart';
 import 'package:adechallenge/screens/map_venues.dart';
+import 'package:adechallenge/screens/my_favorites.dart';
 import 'package:adechallenge/screens/register.dart';
 import 'package:adechallenge/screens/search_venues.dart';
 import 'package:flutter/material.dart';
@@ -27,4 +28,8 @@ void navigateToMapVenues(BuildContext context) {
 
 void navigateToDetailedVenue(BuildContext context) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsVenue()));
+}
+
+void navigateToMyFavorites(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => MyFavorites()));
 }

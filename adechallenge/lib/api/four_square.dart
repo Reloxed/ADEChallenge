@@ -37,8 +37,8 @@ Future<List<Venue>> getVenues(String name, String location) async {
 }
 
 /* Consults the FourSquare API to get details of a given venue by its ID*/
-Future<DetailedVenue?> getDetailedVenue(String id) async {
-  DetailedVenue? detailedVenue;
+Future<DetailedVenue> getDetailedVenue(String id) async {
+  DetailedVenue detailedVenue = DetailedVenue();
   String clientId = "BCPCG5H50N0IIKRG0YZWXNSU1XKBA0FRBIAU25O4BKPMLESU";
   String secret = "AVQNXQ2LD01BIXLD2UWJGL0IR5BDBMZFA3UEHDQFNBJMVC3R";
 
@@ -56,7 +56,6 @@ Future<DetailedVenue?> getDetailedVenue(String id) async {
 
   if (map['meta']['code'] == 200) {
     detailedVenue = DetailedVenue.detailedVenueFromApi(map['response']['venue']);
-  } else
-    detailedVenue = null;
+  }
   return detailedVenue;
 }

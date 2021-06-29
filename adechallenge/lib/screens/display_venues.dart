@@ -1,4 +1,6 @@
-import 'package:adechallenge/models/venue_provider.dart';
+import 'package:adechallenge/models/providers/detailed_venue_provider.dart';
+
+import '../models/providers/venue_provider.dart';
 import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,33 +42,36 @@ class _DisplayVenuesState extends State<DisplayVenues> {
                       return Card(
                           margin: EdgeInsets.symmetric(vertical: 5.0),
                           child: ListTile(
-                              isThreeLine: true,
-                              leading: Image.network(provider.venues[index].iconUrl, fit: BoxFit.fill),
-                              title: Text(provider.venues[index].name),
-                              subtitle: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(provider.venues[index].category),
-                                  provider.venues[index].distance == -1.0
-                                      ? Container()
-                                      : Text(provider.venues[index].distance.toString()),
-                                  provider.venues[index].city != null ?
-                                  Text(provider.venues[index].address + ", " + provider.venues[index].city) :
-                                  Text(provider.venues[index].address),
-                                ],
-                              )));
+                            isThreeLine: true,
+                            leading: Image.network(provider.venues[index].iconUrl, fit: BoxFit.fill),
+                            title: Text(provider.venues[index].name),
+                            subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(provider.venues[index].category),
+                                provider.venues[index].distance == -1.0
+                                    ? Container()
+                                    : Text(provider.venues[index].distance.toString()),
+                                provider.venues[index].address != ""
+                                    ? provider.venues[index].city != "" ?
+                                    Text(provider.venues[index].address + ", " + provider.venues[index].city)
+                                    : Text(provider.venues[index].address) : Container()
+                              ],
+                            ),
+                            onTap: () {
+                              var provider2 = Provider.of<DetailedVenueProvider>(context, listen: false);
+                              navigateToDetailedVenue(context);
+                              provider2.getApiData(provider.venues[index].id);
+                            },
+                          ));
                     }),
       ),
       floatingActionButton: provider.venues.length == 0
           ? Container()
           : FloatingActionButton(
               backgroundColor: Theme.of(context).primaryColor,
-              onPressed: () => {
-                navigateToMapVenues(context),
-                provider.getAverageCoor(),
-                provider.getMarkers(context)
-              },
+              onPressed: () => {navigateToMapVenues(context), provider.getAverageCoor(), provider.getMarkers(context)},
               child: Icon(Icons.map),
             ),
     );

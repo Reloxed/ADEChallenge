@@ -1,5 +1,5 @@
-import 'package:adechallenge/models/detailed_venue_provider.dart';
-import 'package:adechallenge/models/venue_provider.dart';
+import 'models/providers/detailed_venue_provider.dart';
+import 'models/providers/venue_provider.dart';
 import 'package:adechallenge/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

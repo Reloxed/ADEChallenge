@@ -1,5 +1,5 @@
 import 'package:adechallenge/api/four_square.dart';
-import 'package:adechallenge/models/detailed_venue_provider.dart';
+import 'detailed_venue_provider.dart';
 import 'package:adechallenge/models/venue.dart';
 import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/cupertino.dart';

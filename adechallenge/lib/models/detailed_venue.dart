@@ -15,9 +15,10 @@ class DetailedVenue {
   late String website;
   late int hereNow;
   late bool? isOpen;
-  late List<TimeFrame> timeframes;
 
-  DetailedVenue(
+  DetailedVenue();
+
+  DetailedVenue.full(
       String id,
       String name,
       String category,
@@ -30,8 +31,7 @@ class DetailedVenue {
       String formattedPhone,
       String website,
       int hereNow,
-      bool? isOpen,
-      List<TimeFrame> timeframes) {
+      bool? isOpen) {
     this.id = id;
     this.name = name;
     this.category = category;
@@ -46,7 +46,6 @@ class DetailedVenue {
     this.website = website;
     this.hereNow = hereNow;
     this.isOpen = isOpen;
-    this.timeframes = timeframes;
   }
 
   static detailedVenueFromApi(Map<String, dynamic> map) {
@@ -58,8 +57,7 @@ class DetailedVenue {
     String formattedPhone = "";
     String website = "";
     int hereNow = -1;
-    bool? isOpen;
-    List<TimeFrame> timeframes = [];
+    bool? isOpen = null;
     if (map['categories'] != null) {
       category = map['categories'][0]['name'];
       url = map['categories'][0]['icon']['prefix'] + "bg_64" + map['categories'][0]['icon']['suffix'];
@@ -78,6 +76,8 @@ class DetailedVenue {
     }
     if (map['url'] != null) {
       website = map['url'];
+    } else if (map['canonicalUrl'] != null) {
+      website = map['canonicalUrl'];
     }
     if (map['hereNow']['count'] != null) {
       hereNow = map['hereNow']['count'];
@@ -85,26 +85,8 @@ class DetailedVenue {
     if (map['hours'] != null) {
       if(map['hours']['isOpen'] != null)
         isOpen = map['hours']['isOpen'];
-      if (map['hours']['timeFrames'] != null) {
-        for(int i = 0; i < map['hours']['timeFrames'].length; i++) {
-          String days = map['hours']['timeFrames'][i]['days'];
-          String renderedTime = map['hours']['timeFrames'][i]['open']['renderedTime'];
-          TimeFrame timeFrame = new TimeFrame(days, renderedTime);
-          timeframes.add(timeFrame);
-        }
-      }
     }
-    return new DetailedVenue(map['id'], map['name'], category, url, distance, map['location']['lat'],
-        map['location']['lng'], address, city, formattedPhone, website, hereNow, isOpen, timeframes);
-  }
-}
-
-class TimeFrame {
-  late String days;
-  late String renderedTime;
-
-  TimeFrame(String days, String renderedTime) {
-    this.days = days;
-    this.renderedTime = renderedTime;
+    return new DetailedVenue.full(map['id'], map['name'], category, url, distance, map['location']['lat'],
+        map['location']['lng'], address, city, formattedPhone, website, hereNow, isOpen);
   }
 }
