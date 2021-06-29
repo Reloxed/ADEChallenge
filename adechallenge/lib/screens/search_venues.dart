@@ -1,3 +1,5 @@
+import 'package:adechallenge/models/providers/detailed_venue_provider.dart';
+
 import '../models/providers/venue_provider.dart';
 import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
@@ -93,6 +95,7 @@ class _SearchVenuesState extends State<SearchVenues> {
   }
 
   Widget _myFavorites() {
+    var provider = Provider.of<DetailedVenueProvider>(context);
     return Container(
       margin: EdgeInsets.only(top: 32.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -103,13 +106,14 @@ class _SearchVenuesState extends State<SearchVenues> {
             elevation: 3),
         onPressed: () {
           navigateToMyFavorites(context);
+          provider.getFavoriteListFromDatabase();
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Mis favoritos "),
-            Icon(Icons.star, color: Colors.yellow[800])
+            Icon(Icons.star, color: Colors.yellow.shade800)
           ],
         )
       ),

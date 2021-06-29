@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:adechallenge/database/inserts.dart';
+
 import '../models/providers/detailed_venue_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,6 +17,12 @@ class DetailsVenue extends StatefulWidget {
 }
 
 class _DetailsVenueState extends State<DetailsVenue> {
+  Completer<GoogleMapController> _controller = Completer();
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<DetailedVenueProvider>(context);
@@ -35,7 +45,7 @@ class _DetailsVenueState extends State<DetailsVenue> {
                     height: MediaQuery.of(context).size.height / 2,
                     child: Column(
                       children: [
-                        _title(provider.detailedVenue.name),
+                        _title(provider),
                         Container(
                           margin: EdgeInsets.only(top: 20.0),
                           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -76,16 +86,43 @@ class _DetailsVenueState extends State<DetailsVenue> {
             zoomGesturesEnabled: false,
             zoomControlsEnabled: true,
             myLocationEnabled: false,
+            onMapCreated: _onMapCreated,
             initialCameraPosition: new CameraPosition(
                 target: new LatLng(provider.detailedVenue.latitude, provider.detailedVenue.longitude), zoom: 14),
             markers: markers.toSet()));
   }
 
-  Widget _title(String name) {
+  Widget _title(var provider) {
+    Color _starColor = Colors.grey;
+    if (provider.isFavorite) {
+      _starColor = Colors.yellow.shade800;
+    } else {
+      _starColor = Colors.grey;
+    }
+
     return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(top: 10.0),
-        child: Text(name, style: Theme.of(context).textTheme.headline5));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(provider.detailedVenue.name, style: Theme.of(context).textTheme.headline5),
+            IconButton(
+              icon: Icon(Icons.star, color: _starColor),
+              onPressed: () async {
+                if (_starColor == Colors.grey) {
+                  await saveFavorites(provider.detailedVenue);
+                  provider.setFavorite(true);
+                } else {
+                  await deleteFavorites(provider.detailedVenue.id);
+                  provider.setFavorite(false);
+                }
+                provider.getFavoriteListFromDatabase();
+              },
+            )
+          ],
+        ));
   }
 
   Widget _icon(String iconUrl) {

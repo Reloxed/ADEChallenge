@@ -57,6 +57,7 @@ class VenueProvider extends ChangeNotifier {
               onTap: () {
                 navigateToDetailedVenue(context);
                 provider.getApiData(venues.elementAt(i).id);
+                provider.getIsFavoriteFromDatabase(venues.elementAt(i).id);
               }));
       markers.add(m);
     }

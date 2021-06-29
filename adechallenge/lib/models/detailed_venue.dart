@@ -18,20 +18,8 @@ class DetailedVenue {
 
   DetailedVenue();
 
-  DetailedVenue.full(
-      String id,
-      String name,
-      String category,
-      String iconUrl,
-      double distance,
-      double latitude,
-      double longitude,
-      String address,
-      String city,
-      String formattedPhone,
-      String website,
-      int hereNow,
-      bool? isOpen) {
+  DetailedVenue.full(String id, String name, String category, String iconUrl, double distance, double latitude,
+      double longitude, String address, String city, String formattedPhone, String website, int hereNow, bool? isOpen) {
     this.id = id;
     this.name = name;
     this.category = category;
@@ -83,10 +71,42 @@ class DetailedVenue {
       hereNow = map['hereNow']['count'];
     }
     if (map['hours'] != null) {
-      if(map['hours']['isOpen'] != null)
-        isOpen = map['hours']['isOpen'];
+      if (map['hours']['isOpen'] != null) isOpen = map['hours']['isOpen'];
     }
     return new DetailedVenue.full(map['id'], map['name'], category, url, distance, map['location']['lat'],
         map['location']['lng'], address, city, formattedPhone, website, hereNow, isOpen);
   }
+
+  static detailedVenueFromDatabase(Map<String, dynamic> map) {
+    return new DetailedVenue.full(
+        map['id'],
+        map['name'],
+        map['category'],
+        map['iconUrl'],
+        map['distance'],
+        map['latitude'],
+        map['longitude'],
+        map['address'],
+        map['city'],
+        map['formattedPhone'],
+        map['website'],
+        map['hereNow'],
+        map['isOpen']);
+  }
+
+  Map<String, dynamic> detailedVenueToJson() => {
+        "id": id,
+        "name": name,
+        "category": category,
+        "iconUrl": iconUrl,
+        "distance": distance,
+        "latitude": latitude,
+        "longitude": longitude,
+        "address": address,
+        "city": city,
+        "formattedPhone": formattedPhone,
+        "website": website,
+        "hereNow": hereNow,
+        "isOpen": isOpen,
+      };
 }

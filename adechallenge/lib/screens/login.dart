@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("ADEChallenge", style: Theme.of(context).textTheme.headline5),
         ),

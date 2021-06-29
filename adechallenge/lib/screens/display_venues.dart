@@ -59,10 +59,11 @@ class _DisplayVenuesState extends State<DisplayVenues> {
                                     : Text(provider.venues[index].address) : Container()
                               ],
                             ),
-                            onTap: () {
+                            onTap: () async {
                               var provider2 = Provider.of<DetailedVenueProvider>(context, listen: false);
                               navigateToDetailedVenue(context);
-                              provider2.getApiData(provider.venues[index].id);
+                              await provider2.getApiData(provider.venues[index].id);
+                              await provider2.getIsFavoriteFromDatabase(provider.venues[index].id);
                             },
                           ));
                     }),
