@@ -1,3 +1,6 @@
+import 'package:adechallenge/screens/search_venues.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'models/providers/detailed_venue_provider.dart';
 import 'models/providers/venue_provider.dart';
 import 'package:adechallenge/screens/login.dart';
@@ -15,10 +18,12 @@ void main() async {
     ChangeNotifierProvider<DetailedVenueProvider>(create: (_) => DetailedVenueProvider())
   ];
 
-  runApp(MultiProvider(
-    providers: providers,
-    child: MyApp(),
-  ),);
+  runApp(
+    MultiProvider(
+      providers: providers,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,12 +31,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.lightGreen,
-        primarySwatch: Colors.lightGreen,
-        accentColor: Colors.blue[200]
+      theme:
+          ThemeData(primaryColor: Colors.lightGreen, primarySwatch: Colors.lightGreen, accentColor: Colors.blue[200]),
+      home: FutureBuilder<bool>(
+        future: checkIfUserIsLogged(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData) {
+            return Material(
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text("ADEChallenge"),
+                ),
+                body: Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return snapshot.requireData == true ? SearchVenues() : Login();
+          }
+        },
       ),
-      home: Login(),
     );
+  }
+
+  Future<bool> checkIfUserIsLogged() async {
+    bool logged = false;
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.get("loggedUser") != null) {
+      logged = true;
+    }
+    return logged;
   }
 }

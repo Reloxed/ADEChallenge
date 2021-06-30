@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:adechallenge/database/inserts.dart';
 
 import '../models/providers/detailed_venue_provider.dart';

@@ -1,4 +1,5 @@
 import 'package:adechallenge/models/providers/detailed_venue_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/providers/venue_provider.dart';
 import 'package:adechallenge/utils/navigations.dart';
@@ -32,13 +33,14 @@ class _SearchVenuesState extends State<SearchVenues> {
                   colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.dstATop))),
           child: Column(
             children: [
+              _myFavorites(),
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(vertical: 250.0, horizontal: 30.0),
+                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height / 4, horizontal: 30.0),
                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.7), borderRadius: BorderRadius.circular(30.0)),
                 child: _searchForm(),
               ),
-              _myFavorites()
+              _logOut()
             ],
           )
         ),
@@ -96,7 +98,7 @@ class _SearchVenuesState extends State<SearchVenues> {
   Widget _myFavorites() {
     var provider = Provider.of<DetailedVenueProvider>(context);
     return Container(
-      margin: EdgeInsets.only(top: 32.0),
+      margin: EdgeInsets.only(top: 64.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -115,6 +117,32 @@ class _SearchVenuesState extends State<SearchVenues> {
             Icon(Icons.star, color: Colors.yellow.shade800)
           ],
         )
+      ),
+    );
+  }
+
+  Widget _logOut() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 0.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+              primary: Theme.of(context).primaryColor,
+              elevation: 3),
+          onPressed: () async{
+            SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+            sharedPreferences.remove("loggedUser");
+            navigationLogOut(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Logout "),
+              Icon(Icons.power_settings_new, color: Colors.white)
+            ],
+          )
       ),
     );
   }

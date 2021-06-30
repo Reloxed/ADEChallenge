@@ -1,5 +1,6 @@
 import 'package:adechallenge/screens/details_venue.dart';
 import 'package:adechallenge/screens/display_venues.dart';
+import 'package:adechallenge/screens/login.dart';
 import 'package:adechallenge/screens/map_venues.dart';
 import 'package:adechallenge/screens/my_favorites.dart';
 import 'package:adechallenge/screens/register.dart';
@@ -31,4 +32,9 @@ void navigateToDetailedVenue(BuildContext context) {
 
 void navigateToMyFavorites(BuildContext context) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => MyFavorites()));
+}
+
+void navigationLogOut(BuildContext context) {
+  Navigator.pushAndRemoveUntil(
+      context, MaterialPageRoute(builder: (context) => Login()), (Route<dynamic> route) => false);
 }

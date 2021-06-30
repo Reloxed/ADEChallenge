@@ -2,6 +2,7 @@ import 'package:adechallenge/utils/dialogs.dart';
 import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// This screen has a form which is used to login users on the app. It asks for an email and password and when the login
 /// button is clicked, the form is validated showing the corresponding errors on the
@@ -99,6 +100,8 @@ class _LoginState extends State<Login> {
           if(_formKey.currentState!.validate()){
             try {
               await _auth.signInWithEmailAndPassword(email: email, password: password);
+              SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+              sharedPreferences.setString("loggedUser", _auth.currentUser!.uid);
               navigateToSearchVenues(context);
             } on FirebaseAuthException catch (e) {
               String message = "";
