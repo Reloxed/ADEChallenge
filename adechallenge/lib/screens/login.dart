@@ -51,6 +51,7 @@ class _LoginState extends State<Login> {
     return Container(
       child: TextFormField(
         textCapitalization: TextCapitalization.words,
+        keyboardType: TextInputType.emailAddress,
         validator: (v) {
           if (v!.isEmpty)
             return "This field cannot be empty.";

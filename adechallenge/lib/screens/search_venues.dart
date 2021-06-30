@@ -98,7 +98,7 @@ class _SearchVenuesState extends State<SearchVenues> {
   Widget _myFavorites() {
     var provider = Provider.of<DetailedVenueProvider>(context);
     return Container(
-      margin: EdgeInsets.only(top: 64.0),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 24),
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -123,7 +123,6 @@ class _SearchVenuesState extends State<SearchVenues> {
 
   Widget _logOut() {
     return Container(
-      margin: EdgeInsets.only(bottom: 0.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
