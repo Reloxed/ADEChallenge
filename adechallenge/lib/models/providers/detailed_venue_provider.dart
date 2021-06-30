@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../detailed_venue.dart';
 
+/// Class used for state management of DetailedVenue.
 class DetailedVenueProvider extends ChangeNotifier {
   late DetailedVenue detailedVenue = DetailedVenue();
   List<DetailedVenue> favorites = [];
@@ -11,7 +12,7 @@ class DetailedVenueProvider extends ChangeNotifier {
   bool isFavorite = false;
 
   /// Asks the FourSquare API for data with the given venue's ID.
-  getApiData(String id) async{
+  getDetailedVenueFromAPI(String id) async{
     loading = true;
     detailedVenue = await getDetailedVenue(id);
     loading = false;
@@ -20,7 +21,7 @@ class DetailedVenueProvider extends ChangeNotifier {
   }
 
   /// Retrieves the detailed venue directly from Firestore database.
-  getDataFromDatabase(DetailedVenue detailedVenue) {
+  getDetailedVenueFromDatabase(DetailedVenue detailedVenue) {
     this.detailedVenue = detailedVenue;
 
     notifyListeners();
@@ -44,7 +45,7 @@ class DetailedVenueProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Sets favorite widget to the given value.
+  /// Sets favorite widget to the given value in the details screen.
   setFavorite(bool favorite) {
     isFavorite = favorite;
 

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-/* Map where the venues searched are shown.*/
+/// Map where the venues searched are shown.
 class MapVenues extends StatefulWidget {
   @override
   _MapVenuesState createState() {
@@ -25,7 +25,7 @@ class _MapVenuesState extends State<MapVenues> {
     var provider = Provider.of<VenueProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("ADEChallenge"),
+        title: Text("Map of venues"),
       ),
       body: provider.loading
           ? Container(

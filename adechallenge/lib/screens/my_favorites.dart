@@ -1,11 +1,9 @@
-import 'package:adechallenge/database/queries.dart';
-import 'package:adechallenge/models/detailed_venue.dart';
 import 'package:adechallenge/models/providers/detailed_venue_provider.dart';
 import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/* This screen shows the venues that are saved as favourite for the current user.*/
+/// This screen shows the venues that are saved as favourite for the current user.
 class MyFavorites extends StatefulWidget {
   @override
   _MyFavoritesState createState() {
@@ -20,7 +18,7 @@ class _MyFavoritesState extends State<MyFavorites> {
       builder: (context, provider, child) {
         return Scaffold(
             appBar: AppBar(
-              title: Text("ADEChallenge"),
+              title: Text("Favorites"),
             ),
             body: provider.loading
                 ? Center(
@@ -29,7 +27,7 @@ class _MyFavoritesState extends State<MyFavorites> {
                 : provider.favorites.length == 0
                 ? Center(
               child: Text(
-                "No se encontraron resultados, intente con otra consulta.",
+                "No favorites saved yet.",
                 style: Theme.of(context).textTheme.headline6,
                 textAlign: TextAlign.center,
               ),
@@ -64,7 +62,7 @@ class _MyFavoritesState extends State<MyFavorites> {
                           ),
                           onTap: () {
                             navigateToDetailedVenue(context);
-                            provider.getDataFromDatabase(provider.favorites[index]);
+                            provider.getDetailedVenueFromDatabase(provider.favorites[index]);
                             provider.setFavorite(true);
                           },
                         ));

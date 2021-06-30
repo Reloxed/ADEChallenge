@@ -2,9 +2,9 @@ import 'package:adechallenge/models/detailed_venue.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-/* This file defines the methods that retrieves some data from the Firestore database */
+/* This file defines the methods that retrieve some data from the Firestore database */
 
-/* Retrieves favorite venues of current user */
+/// Retrieves favorite venues of current user from the Firestore database.
 Future<List<DetailedVenue>> getFavorites() async {
   List<DetailedVenue> _venues = [];
 
@@ -20,7 +20,7 @@ Future<List<DetailedVenue>> getFavorites() async {
   return _venues;
 }
 
-/* Retrieves if a venue has been saved on favorites for a user */
+/// Retrieves if a venue has been saved on favorites for the current user.
 Future<bool> isVenueFavorite(String id) async {
   bool isFavorite = false;
 

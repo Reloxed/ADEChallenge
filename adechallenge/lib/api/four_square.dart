@@ -4,7 +4,9 @@ import 'package:adechallenge/models/detailed_venue.dart';
 import 'package:adechallenge/models/venue.dart';
 import 'package:http/http.dart' as http;
 
-/* Consults the FourSquare API to get venues according to the name and location given. Returns the list of venues.*/
+/* This file defines the methods that consult the FourSquare API*/
+
+/// Consults the FourSquare API to get venues according to the name and location given. Returns the list of venues.
 Future<List<Venue>> getVenues(String name, String location) async {
   List<Venue> res = [];
   String clientId = "BCPCG5H50N0IIKRG0YZWXNSU1XKBA0FRBIAU25O4BKPMLESU";
@@ -36,7 +38,7 @@ Future<List<Venue>> getVenues(String name, String location) async {
   return res;
 }
 
-/* Consults the FourSquare API to get details of a given venue by its ID*/
+/// Consults the FourSquare API to get details of a given venue by its ID
 Future<DetailedVenue> getDetailedVenue(String id) async {
   DetailedVenue detailedVenue = DetailedVenue();
   String clientId = "BCPCG5H50N0IIKRG0YZWXNSU1XKBA0FRBIAU25O4BKPMLESU";

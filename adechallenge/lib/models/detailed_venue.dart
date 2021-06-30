@@ -1,4 +1,4 @@
-/* Class that defines a detailed venue when the user selects one of the searched venues.*/
+/// Class that defines a detailed venue when the user selects one of the searched venues.
 class DetailedVenue {
   late String id;
   late String name;
@@ -8,9 +8,9 @@ class DetailedVenue {
   late double latitude;
   late double longitude;
   late String address;
+  late String city;
 
   // Details
-  late String city;
   late String formattedPhone;
   late String website;
   late int hereNow;
@@ -28,8 +28,8 @@ class DetailedVenue {
     this.latitude = latitude;
     this.longitude = longitude;
     this.address = address;
-    // Details
     this.city = city;
+    // Details
     this.formattedPhone = formattedPhone;
     this.website = website;
     this.hereNow = hereNow;

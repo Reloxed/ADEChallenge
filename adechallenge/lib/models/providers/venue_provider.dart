@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-/* Auxiliary class for the provider state management to manage Venues searched.*/
+/// Auxiliary class for the provider state management to manage Venues searched.
 class VenueProvider extends ChangeNotifier {
   List<Venue> venues = [];
   bool loading = false;
@@ -14,8 +14,8 @@ class VenueProvider extends ChangeNotifier {
   double averageLon = 0.0;
   Set<Marker> markers = Set();
 
-  /* Returns Foursquare API data using the auxiliary method getVenues */
-  getApiData(String name, String location) async {
+  /// Returns Foursquare API data using the auxiliary method getVenues.
+  getVenuesFromAPI(String name, String location) async {
     loading = true;
     venues = await getVenues(name, location);
     loading = false;
@@ -23,7 +23,7 @@ class VenueProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /* Gets the center of the map when the venues are shown on it, averaging the latitude and the longitude */
+  /// Gets the center of the map when the venues are shown on it, averaging the latitude and the longitude.
   getAverageCoor() {
     loading = true;
 
@@ -41,7 +41,7 @@ class VenueProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /* Generates markers for the map for all the venues retrieved from the API*/
+  /// Generates markers for the map for all the venues retrieved from the API.
   getMarkers(BuildContext context) {
     var provider = Provider.of<DetailedVenueProvider>(context, listen: false);
     loading = true;
@@ -53,11 +53,11 @@ class VenueProvider extends ChangeNotifier {
           position: new LatLng(venues.elementAt(i).latitude, venues.elementAt(i).longitude),
           infoWindow: InfoWindow(
               title: venues.elementAt(i).name,
-              snippet: "Más detalles",
-              onTap: () {
+              snippet: "More details",
+              onTap: () async{
                 navigateToDetailedVenue(context);
-                provider.getApiData(venues.elementAt(i).id);
-                provider.getIsFavoriteFromDatabase(venues.elementAt(i).id);
+                await provider.getDetailedVenueFromAPI(venues.elementAt(i).id);
+                await provider.getIsFavoriteFromDatabase(venues.elementAt(i).id);
               }));
       markers.add(m);
     }

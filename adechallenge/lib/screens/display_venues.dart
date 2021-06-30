@@ -5,6 +5,7 @@ import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// This screen displays the venues found on the general search from the FourSquare API.
 class DisplayVenues extends StatefulWidget {
   @override
   _DisplayVenuesState createState() {
@@ -18,7 +19,7 @@ class _DisplayVenuesState extends State<DisplayVenues> {
     var provider = Provider.of<VenueProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("ADEChallenge"),
+        title: Text("Venues found"),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -31,7 +32,7 @@ class _DisplayVenuesState extends State<DisplayVenues> {
             : provider.venues.length == 0
                 ? Center(
                     child: Text(
-                      "No se encontraron resultados, intente con otra consulta",
+                      "Results not found, try with another search.",
                       style: Theme.of(context).textTheme.headline6,
                       textAlign: TextAlign.center,
                     ),
@@ -62,7 +63,7 @@ class _DisplayVenuesState extends State<DisplayVenues> {
                             onTap: () async {
                               var provider2 = Provider.of<DetailedVenueProvider>(context, listen: false);
                               navigateToDetailedVenue(context);
-                              await provider2.getApiData(provider.venues[index].id);
+                              await provider2.getDetailedVenueFromAPI(provider.venues[index].id);
                               await provider2.getIsFavoriteFromDatabase(provider.venues[index].id);
                             },
                           ));
@@ -70,6 +71,7 @@ class _DisplayVenuesState extends State<DisplayVenues> {
       ),
       floatingActionButton: provider.venues.length == 0
           ? Container()
+      // This button opens the map where the venues found are shown.
           : FloatingActionButton(
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: () => {navigateToMapVenues(context), provider.getAverageCoor(), provider.getMarkers(context)},

@@ -5,10 +5,9 @@ import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/*
-Screen where the users can search venues. It is built by a background image and a form where we ask the user to
-say what they want to search for and where. It redirects to the results view.
- */
+
+/// Screen where the users can search venues. It is built by a background image and a form where we ask the user to
+/// say what they want to search for and where. It redirects to the results view.
 class SearchVenues extends StatefulWidget {
   @override
   _SearchVenuesState createState() {
@@ -58,7 +57,7 @@ class _SearchVenuesState extends State<SearchVenues> {
               child: TextFormField(
                 textCapitalization: TextCapitalization.words,
                 onChanged: (value) => this.name = value,
-                decoration: InputDecoration(labelText: "Buscando...", prefixIcon: Icon(Icons.search)),
+                decoration: InputDecoration(labelText: "Looking for...", prefixIcon: Icon(Icons.search)),
               ),
             ),
             Container(
@@ -66,7 +65,7 @@ class _SearchVenuesState extends State<SearchVenues> {
                 child: TextFormField(
                   textCapitalization: TextCapitalization.words,
                   onChanged: (value) => this.location = value,
-                  decoration: InputDecoration(labelText: "En...", prefixIcon: Icon(Icons.place)),
+                  decoration: InputDecoration(labelText: "At...", prefixIcon: Icon(Icons.place)),
                 )),
             _button()
           ],
@@ -85,10 +84,10 @@ class _SearchVenuesState extends State<SearchVenues> {
             elevation: 3),
         onPressed: () {
           navigateToDisplayVenues(context);
-          provider.getApiData(name, location);
+          provider.getVenuesFromAPI(name, location);
         },
         child: Text(
-          "¡A pasarlo bien!",
+          "Let's find out!",
         ),
       ),
     );
@@ -112,7 +111,7 @@ class _SearchVenuesState extends State<SearchVenues> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Mis favoritos "),
+            Text("My favorites "),
             Icon(Icons.star, color: Colors.yellow.shade800)
           ],
         )

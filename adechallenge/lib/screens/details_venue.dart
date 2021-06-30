@@ -8,7 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/* Screen where the details are shown to the user alongside the map that shows its location.*/
+/// Screen where the details are shown to the user alongside the map that shows its location.
 class DetailsVenue extends StatefulWidget {
   @override
   _DetailsVenueState createState() {
@@ -17,11 +17,6 @@ class DetailsVenue extends StatefulWidget {
 }
 
 class _DetailsVenueState extends State<DetailsVenue> {
-  Completer<GoogleMapController> _controller = Completer();
-
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +24,7 @@ class _DetailsVenueState extends State<DetailsVenue> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("ADEChallenge"),
+        title: Text("Detailed venue"),
       ),
       body: provider.loading
           ? Container(
@@ -69,6 +64,7 @@ class _DetailsVenueState extends State<DetailsVenue> {
     );
   }
 
+  /// This widget defines the half of the screen where the map is shown.
   Widget _map(var provider) {
     List<Marker> markers = [];
     MarkerId markerId = new MarkerId(provider.detailedVenue.name);
@@ -86,12 +82,12 @@ class _DetailsVenueState extends State<DetailsVenue> {
             zoomGesturesEnabled: false,
             zoomControlsEnabled: true,
             myLocationEnabled: false,
-            onMapCreated: _onMapCreated,
             initialCameraPosition: new CameraPosition(
                 target: new LatLng(provider.detailedVenue.latitude, provider.detailedVenue.longitude), zoom: 14),
             markers: markers.toSet()));
   }
 
+  /// This widget defines the title of the venue and the icon star of favorites.
   Widget _title(var provider) {
     Color _starColor = Colors.grey;
     if (provider.isFavorite) {
@@ -125,6 +121,7 @@ class _DetailsVenueState extends State<DetailsVenue> {
         ));
   }
 
+  /// This widget defines how the icon given on the API is shown.
   Widget _icon(String iconUrl) {
     return Container(
       alignment: Alignment.center,
@@ -133,6 +130,7 @@ class _DetailsVenueState extends State<DetailsVenue> {
     );
   }
 
+  /// This widget defines what is shown on the right of the icon (category, distance, address, city, formatted phone).
   Widget _onIconRight(String category, String distance, String address, String city, String formattedPhone) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
@@ -166,6 +164,7 @@ class _DetailsVenueState extends State<DetailsVenue> {
     );
   }
 
+  /// This widget defines what is shown below the rest of the widgets (website, if it's open and people there now).
   Widget _rest(String url, bool? isOpen, int hereNow) {
     return Container(
         margin: EdgeInsets.only(top: 30.0, left: 50.0),
@@ -174,16 +173,16 @@ class _DetailsVenueState extends State<DetailsVenue> {
             Row(
               children: [
                 Icon(Icons.language),
-                InkWell(onTap: () => launch(url), child: Text(" Más información/Sitio web"))
+                InkWell(onTap: () => launch(url), child: Text(" More information/Website"))
               ],
             ),
             isOpen != null
                 ? Container(
                     margin: EdgeInsets.only(top: 10.0),
                     child: isOpen
-                        ? Row(children: [Icon(Icons.lock_open), Text(" Está abierto")])
+                        ? Row(children: [Icon(Icons.lock_open), Text(" It's open!")])
                         : Row(
-                            children: [Icon(Icons.lock), Text(" Está cerrado")],
+                            children: [Icon(Icons.lock), Text(" It's closed...")],
                           ))
                 : Container(),
             hereNow != -1
@@ -193,8 +192,8 @@ class _DetailsVenueState extends State<DetailsVenue> {
                       children: [
                         Icon(Icons.group),
                         hereNow > 0
-                            ? Text(" Hay " + hereNow.toString() + " personas ahora mismo.")
-                            : Text(" No hay nadie ahora mismo")
+                            ? Text(" There are " + hereNow.toString() + " people right now.")
+                            : Text(" There is no one right now.")
                       ],
                     ),
                   )

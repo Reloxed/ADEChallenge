@@ -3,11 +3,9 @@ import 'package:adechallenge/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-/*
-This screen has a form which is used to login users on the app. It asks for an email and password and when the login
-button is clicked, the form is validated showing the corresponding errors on the
-fields. Then, if everything is ok, the user is redirected to the search_venues screen.
- */
+/// This screen has a form which is used to login users on the app. It asks for an email and password and when the login
+/// button is clicked, the form is validated showing the corresponding errors on the
+/// fields. Then, if everything is ok, the user is redirected to the search_venues screen.
 class Login extends StatefulWidget {
   @override
   _LoginState createState() {
@@ -54,9 +52,9 @@ class _LoginState extends State<Login> {
         textCapitalization: TextCapitalization.words,
         validator: (v) {
           if (v!.isEmpty)
-            return "Este campo no puede estar vacío";
+            return "This field cannot be empty.";
           else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(v))
-            return "El email no es válido";
+            return "Not valid email.";
           else
             return null;
         },
@@ -74,14 +72,14 @@ class _LoginState extends State<Login> {
         obscureText: true,
         validator: (v) {
           if (v!.isEmpty)
-            return "Este campo no puede estar vacío";
+            return "This field cannot be empty.";
           else if (v.length <= 5)
-            return "La contraseña debe tener mínimo 6 caracteres";
+            return "Password must have 6 characters at least.";
           else
             return null;
         },
         decoration:
-        InputDecoration(border: OutlineInputBorder(), labelText: "Contraseña", prefixIcon: Icon(Icons.lock)),
+        InputDecoration(border: OutlineInputBorder(), labelText: "Password", prefixIcon: Icon(Icons.lock)),
         onChanged: (value) => password = value,
       ),
     );
@@ -105,15 +103,15 @@ class _LoginState extends State<Login> {
             } on FirebaseAuthException catch (e) {
               String message = "";
               if(e.code == 'user-not-found')
-                message = "Usuario no encontrado.";
+                message = "User not found.";
               else if (e.code == 'wrong-password')
-                message = "Contraseña errónea.";
+                message = "Wrong password given.";
               errorDialog(context, message);
             }
           }
         },
         child: Text(
-          "Iniciar sesión",
+          "Log in",
         ),
       ),
     );
@@ -126,14 +124,14 @@ class _LoginState extends State<Login> {
             alignment: Alignment.bottomCenter,
             child: Column(children: <Widget>[
               new Text(
-                "¿Aún no te has registrado?",
+                "Not registered yet?",
               ),
               ElevatedButton(
                 onPressed: () {
                   navigateToRegister(context);
                 },
                 child: new Text(
-                  "¡Regístrate!",
+                  "Register now!",
                 ),
               )
             ])));

@@ -1,4 +1,3 @@
-import 'package:adechallenge/models/detailed_venue.dart';
 import 'package:adechallenge/screens/details_venue.dart';
 import 'package:adechallenge/screens/display_venues.dart';
 import 'package:adechallenge/screens/map_venues.dart';

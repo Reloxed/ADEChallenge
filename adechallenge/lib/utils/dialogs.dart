@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-/*
-Dialog used on the register screen to confirm that the account has been created, and redirect to the login page.
- */
+
+/// Dialog used on the register screen to confirm that the account has been created, and redirect to the login page.
 dynamic acceptDialogRegister(BuildContext context, String message) {
   return showDialog(
       context: context,
@@ -29,16 +28,15 @@ dynamic acceptDialogRegister(BuildContext context, String message) {
                 Navigator.of(context, rootNavigator: true).pop();
                 Navigator.of(context, rootNavigator: true).pop();
               },
-              child: Text("ENTENDIDO"),
+              child: Text("UNDERSTOOD"),
             )
           ],
         );
       });
 }
 
-/*
-Generic dialog for showing possible errors
- */
+
+/// Generic dialog for showing possible errors
 dynamic errorDialog(BuildContext context, String message) {
   return showDialog(
       context: context,
@@ -63,7 +61,7 @@ dynamic errorDialog(BuildContext context, String message) {
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
               },
-              child: Text("ENTENDIDO"),
+              child: Text("UNDERSTOOD"),
             )
           ],
         );

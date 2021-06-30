@@ -1,4 +1,4 @@
-/* Class that defines the venues searched on the general search of venues.*/
+/// Class that defines the venues searched on the general search of venues.
 class Venue {
   late String id;
   late String name;
